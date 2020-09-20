@@ -1,12 +1,22 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import useContentful from "./hooks/useContentful";
+import { Person } from "./components/person";
 
 const query = `
 query {
   person(id: "1rNEKPzvK91G1YW7xY8wjt") {
     name
+    socialGithub
+    socialFacebook
+    socialLinkedin
+    bio{
+      json
+    }
+    image{
+      title
+      url
+    }
   }
 }
 `;
@@ -20,17 +30,14 @@ function App() {
         {errors.map((error) => error.message).join(", ")}
       </span>
     );
+  
   if (!data) return <span>Loading...</span>;
 
-  const { name } = data.person;
+  const { person } = data;
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <p>{name}</p>
-      </header>
+      <Person person={person}/>
     </div>
   );
 }
