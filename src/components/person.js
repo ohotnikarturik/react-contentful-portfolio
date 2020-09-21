@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes, { node } from "prop-types";
+import PropTypes from "prop-types";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, INLINES } from '@contentful/rich-text-types'
 

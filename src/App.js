@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import useContentful from "./hooks/useContentful";
 import { Person } from "./components/person";
+import Bookmarks from "./components/bookmarks";
 
 const query = `
 query {
@@ -13,9 +14,24 @@ query {
     bio{
       json
     }
-    image{
+    image {
       title
       url
+    }
+  }
+  bookmarkCollection {
+    items {
+      sys {
+        id
+      }
+      title
+      url
+      comment
+      tagsCollection {
+        items {
+          title
+        }
+      }
     }
   }
 }
@@ -30,14 +46,15 @@ function App() {
         {errors.map((error) => error.message).join(", ")}
       </span>
     );
-  
+
   if (!data) return <span>Loading...</span>;
 
-  const { person } = data;
+  const { person, bookmarkCollection } = data;
 
   return (
     <div className="App">
-      <Person person={person}/>
+      <Person person={person} />
+      <Bookmarks bookmarks={bookmarkCollection.items} />
     </div>
   );
 }
